@@ -1,5 +1,4 @@
-{
-   "notas":[
+[
       {
          "id":90,
          "titulo":"titulo teste 90",
@@ -46,4 +45,3 @@
          "descricao":"descricao teste 98"
       }
    ]
-}
