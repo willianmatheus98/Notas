@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Notas</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="title_activity_scrolling">ScrollingActivity</string>
+    <string name="descricao">Descripción</string>
+    <string name="titulo">Título</string>
+    <string name="salvar">guardar</string>
+    <string name="tituloObrigatorio">Rellene el título</string>
+    <string name="descricaoObrigatorio">Completa la descripción</string>
+    <string name="selecione">Seleccione uno:</string>
+    <string name="author">Creado por Willian Matheus
+</string>
+    <string name="my_notes">Mis notas
+</string>
+    <string name="new_note">Añadir Nota</string>
+    <string name="intro">
+Esta es una aplicación de notas, puede agregar notas para ver notas como desee</string>
+
+</resources>

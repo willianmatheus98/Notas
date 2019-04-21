@@ -7,11 +7,11 @@
         <item
             android:id="@+id/create"
             android:icon="@android:drawable/ic_menu_add"
-            android:title="Adicionar Nota" />
+            android:title="@string/new_note" />
         <item
             android:id="@+id/notes"
             android:icon="@android:drawable/ic_input_get"
-            android:title="Minhas Notas" />
+            android:title="@string/my_notes" />
     </group>
 
 </menu>

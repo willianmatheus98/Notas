@@ -9,8 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ListActivity">
-
+        <activity android:name=".ListActivity"
             android:parentActivityName="com.example.notas.MainActivity" >
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
@@ -18,7 +17,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.notas.MainActivity" />
         </activity>
-        <activity android:name=".CreateActivity">
+        <activity android:name=".CreateActivity"
             android:parentActivityName="com.example.notas.MainActivity" >
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
@@ -37,5 +36,6 @@
             </intent-filter>
         </activity>
     </application>
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 </manifest>

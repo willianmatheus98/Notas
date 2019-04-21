@@ -23,7 +23,6 @@ public class ListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-
         ListView listaNotas = (ListView) findViewById(R.id.lista);
 
         ArrayAdapter<Nota> adapter = new ArrayAdapter<Nota>(this,
@@ -39,11 +38,11 @@ public class ListActivity extends AppCompatActivity {
 
                 AlertDialog.Builder builderSingle = new AlertDialog.Builder(ListActivity.this);
 
-                builderSingle.setTitle("Selecione um:");
+                builderSingle.setTitle(R.string.selecione);
 
                 AlertDialog.Builder builderInner = new AlertDialog.Builder(ListActivity.this);
                 builderInner.setMessage(n.getDescricao());
-                builderInner.setTitle("Descrição");
+                builderInner.setTitle(R.string.titulo);
                 DialogInterface dialog = new DialogInterface() {
                     @Override
                     public void cancel() {

@@ -1,9 +1,12 @@
 package com.example.notas;
 
 import android.content.Intent;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,17 +16,34 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cz.msebera.android.httpclient.Header;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static ArrayList<Nota> notas = getNotas();
+    public static String URL_BASE = "https://raw.githubusercontent.com/willianmatheus98/Notas/master/notasASeremSincronizadas.json";
+    public static ArrayList<Nota> notas = new ArrayList<Nota>();
+
+    public static SQLiteDatabase mConection;
+    public static DatabaseHelper mDataHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Nota.c = this.getApplicationContext();
+            createConection();
+            notas = getNotas();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -105,13 +125,46 @@ public class MainActivity extends AppCompatActivity
     }
 
     public static ArrayList<Nota> getNotas() {
-        ArrayList<Nota> notas = new ArrayList<Nota>();
-         for (int i = 1; i <= 5; i++){
-             Nota n = new Nota();
-             n.setTitulo("Titulo teste "+ i);
-             n.setDescricao("Descrição teste "+ i);
-             notas.add(n);
-         }
+        final ArrayList<Nota> notas = new ArrayList<Nota>();
+        notas.addAll(NotaDAO.listNotas());
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get(URL_BASE, new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.d("Notas","Sucess! JSON: "+response.toString());
+                try {
+                    JSONArray notasDaWeb = response.getJSONArray("notas");
+                    for (int i = 0; i < notasDaWeb.length(); i++) {
+                        JSONObject nota = notasDaWeb.getJSONObject(i);
+                        Nota n = new Nota();
+                        n.setId(nota.getInt("id"));
+                        n.setDescricao(nota.getString("descricao"));
+                        n.setTitulo(nota.getString("titulo"));
+
+                        notas.add(n);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable,
+                                  JSONObject errorResponse) {
+                Log.e("Notas","Fail "+throwable.toString());
+                Log.d("Notas","Status code "+ statusCode);
+            }
+        });
+
          return notas;
+    }
+
+    public void createConection(){
+        try{
+            mDataHelper = new DatabaseHelper(this.getApplicationContext());
+            mConection = mDataHelper.getWritableDatabase();
+            //Toast.makeText(this,mConection.toString(),Toast.LENGTH_SHORT).show();
+        }catch(SQLException e){
+            Toast.makeText(this,e.toString(),Toast.LENGTH_SHORT).show();
+        }
     }
 }

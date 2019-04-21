@@ -27,13 +27,13 @@ public class CreateActivity extends AppCompatActivity {
         EditText descricao = (EditText) findViewById(R.id.descricaoInput);
 
         if(titulo.getText().toString().equals("")){
-            Toast.makeText(getApplicationContext(), "Preencha o titulo", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.tituloObrigatorio, Toast.LENGTH_SHORT).show();
             titulo.requestFocus();
             return;
         }
 
         if(descricao.getText().toString().equals("")){
-            Toast.makeText(getApplicationContext(), "Preencha a descrição", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.descricaoObrigatorio, Toast.LENGTH_SHORT).show();
             descricao.requestFocus();
             return;
         }
@@ -41,6 +41,7 @@ public class CreateActivity extends AppCompatActivity {
         Nota n = new Nota();
         n.setTitulo(titulo.getText().toString());
         n.setDescricao(descricao.getText().toString());
+        NotaDAO.insert(n);
 
         MainActivity.notas.add(n);
 

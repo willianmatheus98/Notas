@@ -17,7 +17,7 @@
         android:layout_marginTop="52dp"
         android:layout_marginEnd="322dp"
         android:layout_marginRight="322dp"
-        android:text="Este é um aplicativo de notas, você pode adicionar notas para visualizar anotações como quiser"
+        android:text="@string/intro"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
