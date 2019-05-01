@@ -127,12 +127,14 @@ public class MainActivity extends AppCompatActivity
     public static ArrayList<Nota> getNotas() {
         final ArrayList<Nota> notas = new ArrayList<Nota>();
         notas.addAll(NotaDAO.listNotas());
+        //faz a requisição http assincrona
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(URL_BASE, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.d("Notas","Sucess! JSON: "+response.toString());
                 try {
+                    //se tiver itens vai percorrer e adicionar na lista que será exibida
                     JSONArray notasDaWeb = response.getJSONArray("notas");
                     for (int i = 0; i < notasDaWeb.length(); i++) {
                         JSONObject nota = notasDaWeb.getJSONObject(i);
@@ -160,6 +162,7 @@ public class MainActivity extends AppCompatActivity
 
     public void createConection(){
         try{
+            //cria a conexão com o banco
             mDataHelper = new DatabaseHelper(this.getApplicationContext());
             mConection = mDataHelper.getWritableDatabase();
             //Toast.makeText(this,mConection.toString(),Toast.LENGTH_SHORT).show();

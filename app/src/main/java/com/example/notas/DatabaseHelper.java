@@ -15,6 +15,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        //cria a tabela
         db.execSQL(ScriptDLL.getCreateTableChecklist());
     }
 
